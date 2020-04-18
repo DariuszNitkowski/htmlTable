@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <style>
+            table{
+                width: 100%;}
+            thead{
+                background-color: brown;
+            }
+            tr:nth-child(even){
+                background-color: blue;
+            }
+            tbody tr:hover{
+                background-color: black;
+                color: white;
+            }
+            thead:hover{
+                cursor: pointer;
+            }
+            #id{
+                width: 50px;
+            }
+            #error{
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                color: red;
+                text-align: center;}
+        </style>
+        
+    </head>
+
+    <body>
+        
+        <div><input id="id" onkeyup="inputHandle(`id`)" type="text"><input id="name" onkeyup="inputHandle(`name`)" type="text">
+        <input id="city" onkeyup="inputHandle(`city`)" type="text">
+        <button id="searchButton" onclick="search()">Search</button></div>
+        <table>
+            <thead>
+                <tr>
+                    <th onclick="sortColumn(`id`)">ID</th>
+                    <th onclick="sortColumn(`name`)">Name</th>
+                    <th onclick="sortColumn(`city`)">City</th>
+                </tr>
+            </thead>
+
+            <tbody id="tableData">
+
+            </tbody>
+        </table>
+        <div id="error"></div>
+
+
+    </body>
+    <script src="main.js"></script>
+
+</html>
