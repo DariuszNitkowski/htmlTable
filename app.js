@@ -2,31 +2,55 @@ let table, newTable=[]
 let columnClicked=""
 let url="https://recruitment.hal.skygate.io/companies"
 let searchFor={id:"", name:"", city:""}
-
+let incomes=[]
 let searchButton=document.getElementById("searchButton")
 
 
-fetch(url)
-.then(response => {
-    return response.json()
-  })
-.then(data => {
-    table=data
-    newTable=data
-    load(table)})
-.catch(err => {
-    const message=document.getElementById("error")
-    message.innerHTML="Couldnt load the table, please check internet contection and refresh page"
-  })
+const fetchingData = new Promise(resolve=>{
+        console.log("jestem w pierwszej bazie")
+        fetch(url)
+        .then(data=>data.json())
+        .then(data=>{
+            table=data
+            resolve(data)})
+    })
+
+async function fetchingIncomeData(item) {
+    fetch(`https://recruitment.hal.skygate.io/incomes/${item.id}`)
+    .then(data=>data.json())
+    .then(data=>incomes.push(data))
+    console.log("jestem w income pobieraniu");
+}
+
+function incomeLoading(item){
+    return new Promise(resolve=>{
+        console.log("w trele")
+        fetch(`https://recruitment.hal.skygate.io/incomes/${item.id}`)
+        .then(data=>data.json())
+        .then(data=>resolve(data))
+    })
+}
 
 
+async function loopingIncomeData(array) {
+    console.log("w lupie")
+    for (item of array) {
+    await incomeLoading(item).then(res=>incomes.push(res))}
+}
+
+ 
+
+
+fetchingData.then(result=>loopingIncomeData(result))
+.then(()=>console.log(incomes, table,"koniec"))
+   
 
 
 function load(table){
     const tableBody=document.getElementById("tableData")
     let codeHtml=""
     for(let row of table){
-        codeHtml+=`<tr><td>${row.id}</td><td>${row.name}</td><td>${row.city}</td></tr>`
+        codeHtml+=`<tr><td>${row.id}</td><td>${row.name}</td><td>${row.city}</td><td>${row.total}</td></tr>`
     }
     tableBody.innerHTML=codeHtml
 }
@@ -65,7 +89,6 @@ function sortString(columnName, ascending){
 function inputHandle(column){
     let fieldHandle=document.getElementById(column)
     searchFor[column]=fieldHandle.value
-    console.log(searchFor, newTable!==table)
     if (searchFor.id=="" && searchFor.city=="" && searchFor.name=="" && newTable!==table){
         searchButton.innerHTML="Realod table"    
     }
@@ -81,9 +104,8 @@ function search(){
     newTable=newTable.filter(element=>element.name.toLowerCase().includes(searchFor.name.toLowerCase()))}
     if (searchFor.id.length>0){
     newTable=newTable.filter(element=>element.id==searchFor.id)}
-
-    load(newTable)
     
+    console.log(incomes[1],table[1])
 
     document.getElementById("id").value=""
     document.getElementById("city").value=""

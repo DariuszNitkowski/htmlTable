@@ -29,16 +29,16 @@
                 position: absolute;
                 left: 50%;
                 top: 50%;
-                -webkit-transform: translate(-50%, -50%);
                 transform: translate(-50%, -50%);
                 color: red;
                 text-align: center;}
+            
         </style>
         
     </head>
 
     <body>
-        
+        <div id="data">
         <div><input id="id" onkeyup="inputHandle(`id`)" type="text"><input id="name" onkeyup="inputHandle(`name`)" type="text">
         <input id="city" onkeyup="inputHandle(`city`)" type="text">
         <button id="searchButton" onclick="search()">Search</button></div>
@@ -48,6 +48,7 @@
                     <th onclick="sortColumn(`id`)">ID</th>
                     <th onclick="sortColumn(`name`)">Name</th>
                     <th onclick="sortColumn(`city`)">City</th>
+                    <th onclick="sortColumn(`total`)">Total</th>
                 </tr>
             </thead>
 
@@ -55,6 +56,7 @@
 
             </tbody>
         </table>
+        </div>
         <div id="error"></div>
 
 
