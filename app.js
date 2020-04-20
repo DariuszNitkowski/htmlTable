@@ -84,7 +84,6 @@ function displayData(data){
 
     
 function load(table){
-    adjustingData()
     if(table){
     document.getElementById("data").style.display=""
     document.getElementById("message").innerHTML=""
@@ -175,6 +174,8 @@ function search(){
 
 fetchingData()
 .then(result=>loopingIncomeData(result))
-.then(()=>displayData(table))
+.then(()=>{
+    adjustingData()
+    displayData(table)})
 
 
