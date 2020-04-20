@@ -24,7 +24,7 @@ function fetchingData (){
         })
     })}
 
-
+    
 function incomeLoading(item){
     return new Promise(resolve=>{
         fetch(`https://recruitment.hal.skygate.io/incomes/${item.id}`)
@@ -82,9 +82,7 @@ function displayData(data){
         load(pages[data-1])}
     }
 
-
-
-
+    
 function load(table){
     adjustingData()
     if(table){
@@ -120,6 +118,7 @@ function sortColumn(columnName){
     columnClicked=columnName
 }
 
+
 function sortNumber(columnName, ascending){
     newTable.sort((a,b)=>{
         return ascending? a[columnName]-b[columnName] : 
@@ -127,11 +126,11 @@ function sortNumber(columnName, ascending){
     })}
 
 
-    function sortString(columnName, ascending){
+function sortString(columnName, ascending){
     newTable.sort((a, b)=>{
-            return ascending? a[columnName].toLowerCase().localeCompare(b[columnName].toLowerCase())
-            :b[columnName].toLowerCase().localeCompare(a[columnName].toLowerCase());
-        })}
+        return ascending? a[columnName].toLowerCase().localeCompare(b[columnName].toLowerCase())
+        :b[columnName].toLowerCase().localeCompare(a[columnName].toLowerCase());
+    })}
 
 
 
