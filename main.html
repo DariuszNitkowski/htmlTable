@@ -10,10 +10,15 @@
             table{
                 width: 100%;}
             thead{
-                background-color: brown;
-            }
-            tr:nth-child(even){
                 background-color: blue;
+                color: yellow;
+            }
+           tbody tr{
+                text-align: center;
+
+           }
+            tr:nth-child(even){
+                background-color: lightgrey;
             }
             tbody tr:hover{
                 background-color: black;
@@ -22,8 +27,37 @@
             thead:hover{
                 cursor: pointer;
             }
+            #inputs{
+                margin-left: 3px;
+            }
+            #inputs input{
+
+                text-align: center;
+            }
             #id{
-                width: 50px;
+                width: 4%;
+            }
+            #name{
+                width: 16%;
+            }
+            #city{
+                width:15%
+            }
+            #lastIncome{
+                width: 15%
+            }
+            #averageIncome{
+                width: 15%
+            }
+            #totalIncome{
+                width:15%
+            }
+            #searchButton{
+                padding: 3px;
+                cursor: pointer;
+            }
+            #searchButton:hover{
+                
             }
             #message{
                 position: absolute;
@@ -33,15 +67,17 @@
                 font-size: 1,5rem;
                 color: blue;
                 text-align: center;}
-            
         </style>
         
     </head>
 
     <body>
         <div id="data">
-        <div><input id="id" onkeyup="inputHandle(`id`)" type="text"><input id="name" onkeyup="inputHandle(`name`)" type="text">
-        <input id="city" onkeyup="inputHandle(`city`)" type="text">
+        <div id="inputs"><input id="id" onkeyup="inputHandle(`id`)" placeholder="id" type="text"><input id="name" onkeyup="inputHandle(`name`)" placeholder="name" type="text">
+        <input id="city" onkeyup="inputHandle(`city`)" placeholder="city" type="text">
+        <input id="lastIncome" onkeyup="inputHandle(`lastIncome`)" placeholder="Last income" type="text">
+        <input id="averageIncome" onkeyup="inputHandle(`averageIncome`)" pattern="[0-9.]+" placeholder="Average income" type="text">
+        <input id="totalIncome" onkeyup="inputHandle(`totalIncome`)" placeholder="Total income" type="text">
         <button id="searchButton" onclick="search()">Search</button></div>
         <table>
             <thead>
