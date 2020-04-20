@@ -27,6 +27,24 @@
             thead:hover{
                 cursor: pointer;
             }
+            .id{
+                width: 5%;
+            }
+            .name{
+                width: 35%;
+            }
+            .city{
+                width: 25%;
+            }
+            .last{
+                width: 10%;
+            }
+            .average{
+                width: 10%;
+            }
+            .total{
+                width: 20%;
+            }
             #inputs{
                 margin-left: 3px;
             }
@@ -56,8 +74,8 @@
                 padding: 3px;
                 cursor: pointer;
             }
-            #searchButton:hover{
-                
+            button{
+                cursor:pointer;
             }
             #message{
                 position: absolute;
@@ -67,6 +85,18 @@
                 font-size: 1,5rem;
                 color: blue;
                 text-align: center;}
+            a{
+                padding:3px;
+                text-decoration: none;
+                color: black;
+                margin-right: 20px;
+            }
+
+            a {color: black;}
+            a:hover{color: black;}
+            a:visited  {color: black;}
+            a :active{color: black;}
+            a:focus {color: red;}
         </style>
         
     </head>
@@ -79,18 +109,19 @@
         <input id="averageIncome" onkeyup="inputHandle(`averageIncome`)" pattern="[0-9.]+" placeholder="Average income" type="text">
         <input id="totalIncome" onkeyup="inputHandle(`totalIncome`)" placeholder="Total income" type="text">
         <button id="searchButton" onclick="search()">Search</button></div>
+        <div id="pages"></div>
         <table>
             <thead>
                 <tr>
-                    <th onclick="sortColumn(`id`)">ID</th>
-                    <th onclick="sortColumn(`name`)">Name</th>
-                    <th onclick="sortColumn(`city`)">City</th>
-                    <th onclick="sortColumn(`last`)">Last</th>
-                    <th onclick="sortColumn(`average`)">Average</th>
-                    <th onclick="sortColumn(`total`)">Total</th>
+                    <th onclick="sortColumn(`id`)" class="id">ID</th>
+                    <th onclick="sortColumn(`name`)" class="name">Name</th>
+                    <th onclick="sortColumn(`city`)" class="city">City</th>
+                    <th onclick="sortColumn(`last`)" class="last">Last</th>
+                    <th onclick="sortColumn(`average`)" class="average">Average</th>
+                    <th onclick="sortColumn(`total`)" class="total">Total</th>
                 </tr>
             </thead>
-
+            
             <tbody id="tableData">
 
             </tbody>

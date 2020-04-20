@@ -1,22 +1,6 @@
-// 5. Table should be paginated.
-// 6. App should be responsive (It should work well on both desktop as well as on smaller devices such as mobile phones, tablets).
-// 7. Project should contain full documentation (eg. readme). This point is crucial. You can get extra points for clean docs.
 
-let table=[{id: 82,
-    name: "Boehm - Crist",
-    city: "Weimannhaven",
-    total: 233420,
-    average: 4668,
-    last: 9964},
-    {id: 23,
-        name: "Hirthe, Durgan and Aufderhar",
-        city: "South Randallfort",
-        total: 268764,
-        average: 5375,
-        last: 26563}]
-
-// let table=[]
 let newTable=[]
+let pages=[]
 let incomes=[]
 let columnClicked=""
 let url="https://recruitment.hal.skygate.io/companies"
@@ -78,9 +62,32 @@ function adjustingData(){
     }
 }
 
+function displayData(data){
+    if (isNaN(data)){
+        pages=[]
+        let rowOnPage=25
+        let pagesToDisplay=data.length%rowOnPage>0?Math.floor(data.length/rowOnPage)+1:data.length/rowOnPage
+        var page = 'page'; 
+        let buttonsHtml=""
+        for(let iterate = 1; iterate <= pagesToDisplay; iterate++) { 
+            eval('var ' + page + iterate + '='+`data.slice(rowOnPage*iterate-rowOnPage, rowOnPage*iterate)`) 
+            buttonsHtml+=`<a href="#" onclick="displayData(${iterate})">${iterate}</a>`
+            pages.push(eval(`page${iterate}`))
+        } 
+        buttonsHtml="<span>pages: </span>"+buttonsHtml 
+        document.getElementById("pages").innerHTML=buttonsHtml
+        load(pages[0])
+    }
+    else{
+        load(pages[data-1])}
+    }
 
-function load(table, incomes){
-    // adjustingData()
+
+
+
+function load(table){
+    adjustingData()
+    if(table){
     document.getElementById("data").style.display=""
     document.getElementById("message").innerHTML=""
     const tableBody=document.getElementById("tableData")
@@ -89,10 +96,14 @@ function load(table, incomes){
         codeHtml+=`<tr><td>${row.id}</td><td>${row.name}</td><td>${row.city}</td><td>${row.last}</td>
         <td>${row.average}</td><td>${row.total}</td></tr>`
     }
-    tableBody.innerHTML=codeHtml
+    tableBody.innerHTML=codeHtml}
+    else{
+        document.getElementById("tableData").innerHTML=""
+        document.getElementById("message").innerHTML="No matching results"}
 }
 
 function sortColumn(columnName){
+    newTable=table
     let dataType=typeof(table[0][columnName])
     if (columnClicked===columnName){
         ascending=!ascending}
@@ -105,17 +116,19 @@ function sortColumn(columnName){
             sortString(columnName, ascending)
             break
     }
-    load(table)
+    displayData(newTable)
     columnClicked=columnName
 }
+
 function sortNumber(columnName, ascending){
-    table.sort((a,b)=>{
+    newTable.sort((a,b)=>{
         return ascending? a[columnName]-b[columnName] : 
         b[columnName]-a[columnName]
     })}
 
-function sortString(columnName, ascending){
-    table.sort((a, b)=>{
+
+    function sortString(columnName, ascending){
+    newTable.sort((a, b)=>{
             return ascending? a[columnName].toLowerCase().localeCompare(b[columnName].toLowerCase())
             :b[columnName].toLowerCase().localeCompare(a[columnName].toLowerCase());
         })}
@@ -132,8 +145,8 @@ function inputHandle(column){
     else searchButton.innerHTML="Search"
 }
 
+
 function search(){
-    
     newTable=table
     if (searchFor.city.length>0){
     newTable=newTable.filter(element=>element.city.toLowerCase().includes(searchFor.city.toLowerCase()))}
@@ -148,7 +161,7 @@ function search(){
     if (searchFor.averageIncome.length>0 && !isNaN(searchFor.averageIncome)){
         newTable=newTable.filter(element=>element.average<=Number(searchFor.averageIncome))}
 
-    load(newTable)
+    displayData(newTable)
     
     document.getElementById("id").value=""
     document.getElementById("city").value=""
@@ -161,8 +174,8 @@ function search(){
     else searchButton.innerHTML="Search"}
 
 
-// fetchingData()
-// .then(result=>loopingIncomeData(result))
-// .then(()=>load(table, incomes))
+fetchingData()
+.then(result=>loopingIncomeData(result))
+.then(()=>displayData(table))
 
-load(table)
+
