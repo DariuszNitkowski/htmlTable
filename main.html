@@ -25,12 +25,13 @@
             #id{
                 width: 50px;
             }
-            #error{
+            #message{
                 position: absolute;
                 left: 50%;
                 top: 50%;
                 transform: translate(-50%, -50%);
-                color: red;
+                font-size: 1,5rem;
+                color: blue;
                 text-align: center;}
             
         </style>
@@ -48,6 +49,8 @@
                     <th onclick="sortColumn(`id`)">ID</th>
                     <th onclick="sortColumn(`name`)">Name</th>
                     <th onclick="sortColumn(`city`)">City</th>
+                    <th onclick="sortColumn(`last`)">Last</th>
+                    <th onclick="sortColumn(`average`)">Average</th>
                     <th onclick="sortColumn(`total`)">Total</th>
                 </tr>
             </thead>
@@ -57,7 +60,7 @@
             </tbody>
         </table>
         </div>
-        <div id="error"></div>
+        <div id="message"></div>
 
 
     </body>
